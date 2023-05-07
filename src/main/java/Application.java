@@ -1,21 +1,22 @@
-import java.sql.*;
 import java.util.List;
-import java.util.Scanner;
 
 public class Application {
     public static void main(String[] args) {
-//        BookDAO bookDAO = new BookDAOImpl();
-//        List<Book> books = bookDAO.getAllBooks();
-//
-//        for (Book book : books) {
-//            System.out.println("Book ID: " +book.getId());
-//            System.out.println("Tittle: " +book.getTittle());
-//            System.out.println("Author_id: " +book.getAuthorId());
-//            System.out.println("Amount: " +book.getAmount());
-//        }
 
         EmployeeDAO employeeDAO = new EmployeeDAOImpl();
-        List<Employee> employees = employeeDAO.getAllEmployee();
 
+        List<Employee> employees = employeeDAO.getAllEmployee();
+        System.out.println(employees);
+
+        System.out.println(employeeDAO.getEmployeeById(3));
+
+        employeeDAO.updateEmployee(4, new Employee(4, "Anton", "Golubkov", "Muj", 24,  new City(1, "")));
+        System.out.println(employeeDAO.getEmployeeById(4));
+
+        employeeDAO.deleteEmployee(9);
+        System.out.println(employeeDAO.getEmployeeById(9));
+
+        employeeDAO.createEmployee(new Employee(2, "Grigoriy", "Leps", "Muj", 55, new City(2, "")));
+        System.out.println(employeeDAO.getEmployeeById(7));
     }
 }
