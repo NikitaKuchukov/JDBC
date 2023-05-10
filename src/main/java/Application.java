@@ -1,4 +1,3 @@
-import java.util.List;
 
 public class Application {
     public static void main(String[] args) {
@@ -14,5 +13,9 @@ public class Application {
         employeeDAO.updateEmployee(13, new Employee("Andrey", "Makarov", "Muj", 35, 3));
 
         employeeDAO.deleteEmployee(employeeDAO.getEmployeeById(10));
+
+        EntityManagerClass.entityManager.close();
+        EntityManagerClass.entityManagerFactory.close();
+
     }
 }
