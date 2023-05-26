@@ -25,9 +25,9 @@ public class EmployeeDaoImpl implements EmployeeDao {
     @Override
     public List<Employee> getAllEmployee() {
 
-        Query query = EntityManagerClass.entityManager.createNativeQuery("SELECT * FROM employee", Employee.class);
+        return EntityManagerClass.entityManager.createNativeQuery(
+                "SELECT * FROM employee", Employee.class).getResultList();
 
-        return query.getResultList();
     }
 
     @Override
@@ -35,14 +35,14 @@ public class EmployeeDaoImpl implements EmployeeDao {
         EntityTransaction transaction = EntityManagerClass.entityManager.getTransaction();
         transaction.begin();
 
-        Employee employeeOfDataBase = EntityManagerClass.entityManager.find(Employee.class, id);
-        employeeOfDataBase.setFirstName(employee.getFirstName());
-        employeeOfDataBase.setLastName(employee.getLastName());
-        employeeOfDataBase.setGender(employee.getGender());
-        employeeOfDataBase.setAge(employee.getAge());
-        employeeOfDataBase.setCityId(employee.getCityId());
+        Employee updatedEmployee = EntityManagerClass.entityManager.find(Employee.class, id);
+        updatedEmployee.setFirstName(employee.getFirstName());
+        updatedEmployee.setLastName(employee.getLastName());
+        updatedEmployee.setGender(employee.getGender());
+        updatedEmployee.setAge(employee.getAge());
+        updatedEmployee.setCity(employee.getCity());
 
-        EntityManagerClass.entityManager.merge(employeeOfDataBase);
+        EntityManagerClass.entityManager.merge(updatedEmployee);
 
         transaction.commit();
     }

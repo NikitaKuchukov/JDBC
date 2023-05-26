@@ -1,21 +1,45 @@
+import java.util.List;
 
 public class Application {
     public static void main(String[] args) {
 
-        EmployeeDao employeeDAO = new EmployeeDaoImpl();
+        EmployeeDao employeeDao = new EmployeeDaoImpl();
+        CityDao cityDao = new CityDaoImpl();
 
-        employeeDAO.createEmployee(new Employee("Alina", "Kabaeva", "Jen", 48, 4));
+        City city = City.builder().cityName("NSK").employees(List.of()).build();
 
-        System.out.println(employeeDAO.getEmployeeById(5));
+        Employee emp1 = Employee.builder()
+                .firstName("Artut")
+                .lastName("Pirojkov")
+                .gender("Muj")
+                .city(city)
+                .age(55)
+                .build();
 
-        System.out.println(employeeDAO.getAllEmployee());
+        Employee emp2 = Employee.builder()
+                .firstName("Dmitriy")
+                .lastName("Donskoy")
+                .gender("Muj")
+                .age(66)
+                .city(city)
+                .build();
 
-        employeeDAO.updateEmployee(13, new Employee("Andrey", "Makarov", "Muj", 35, 3));
+        city.setEmployees(List.of(emp1, emp2));
 
-        employeeDAO.deleteEmployee(employeeDAO.getEmployeeById(10));
+        cityDao.createCity(city);
+        System.out.println(employeeDao.getAllEmployee().containsAll(city.getEmployees()));
 
-        EntityManagerClass.entityManager.close();
-        EntityManagerClass.entityManagerFactory.close();
+        cityDao.updateCity(31, City.builder().cityName("Samara").build());
 
+employeeDao.updateEmployee(49, Employee.builder()
+        .firstName("Viktoriya")
+        .lastName("Gromova")
+        .gender("Jen")
+        .age(21)
+        .city(city)
+        .build());
+
+        cityDao.deleteCity(cityDao.getCityById(32));
+        System.out.println(employeeDao.getAllEmployee().containsAll(city.getEmployees()));
     }
 }
